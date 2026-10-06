@@ -15,3 +15,9 @@ def api_headers():
     yield headers
 
     print("\n[Teardown] API test execution finished. Cleaning up.")
+
+
+@pytest.fixture
+def api_base_url():
+    return "https://jsonplaceholder.typicode.com"
+

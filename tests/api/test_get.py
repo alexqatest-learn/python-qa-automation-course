@@ -1,15 +1,9 @@
 import pytest
 import requests
+from tests.api.post_checks import assert_valid_post
 
-def test_get_post_by_id(api_base_url):
-    url = f"{api_base_url}/posts/1"
-    response = requests.get(url)
-    assert response.status_code == 200
-    data = response.json()
-    assert data["id"] == 1
-    assert "title" in data    
-    assert "body" in data    
-    assert "userId" in data     
+def test_get_post_by_id(jp_client):
+    assert_valid_post(jp_client, 1)
 
 
 def test_get_all_posts(api_base_url):
@@ -38,3 +32,6 @@ def test_get_post_by_id_parametrized(api_base_url, post_id):
     assert "title" in data    
     assert "body" in data    
     assert "userId" in data     
+
+def test_get_post_by_id_logging_client(jp_logging_client):
+    assert_valid_post(jp_logging_client, 1)

@@ -1,4 +1,5 @@
 import pytest
+from clients.json_placeholder import JsonPlaceholderClient, LoggingJsonPlaceholderClient
 
 
 @pytest.fixture
@@ -21,3 +22,10 @@ def api_headers():
 def api_base_url():
     return "https://jsonplaceholder.typicode.com"
 
+@pytest.fixture
+def jp_client():
+    return JsonPlaceholderClient("https://jsonplaceholder.typicode.com")
+
+@pytest.fixture
+def jp_logging_client():
+    return LoggingJsonPlaceholderClient("https://jsonplaceholder.typicode.com")

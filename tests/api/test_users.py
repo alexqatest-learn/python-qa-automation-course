@@ -12,3 +12,8 @@ def test_get_user_by_id(jp_client):
     assert "name" in data
     assert "username" in data
     assert "email" in data
+
+def test_get_user_not_found(jp_client):
+    non_existent_user_id = 999
+    response = jp_client.get_user(non_existent_user_id)
+    assert response.status_code == 404

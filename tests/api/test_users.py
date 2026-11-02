@@ -1,10 +1,15 @@
 import pytest
-import requests
 
 
+def test_get_user_not_found(jp_client):
+    non_existent_user_id = 999
+    response = jp_client.get_user(non_existent_user_id)
+    assert response.status_code == 404
 
-def test_get_user_by_id(jp_client, user_id_factory):
-    user_id = user_id_factory()
+
+@pytest.mark.parametrize("expected_id", [1, 2, 3])
+def test_get_user_by_id_parametrized(jp_client, user_id_factory, expected_id):
+    user_id = user_id_factory(expected_id)
     response = jp_client.get_user(user_id)
     assert response.status_code == 200
     data = response.json()
@@ -12,8 +17,3 @@ def test_get_user_by_id(jp_client, user_id_factory):
     assert "name" in data
     assert "username" in data
     assert "email" in data
-
-def test_get_user_not_found(jp_client):
-    non_existent_user_id = 999
-    response = jp_client.get_user(non_existent_user_id)
-    assert response.status_code == 404

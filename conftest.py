@@ -29,3 +29,16 @@ def jp_client():
 @pytest.fixture
 def jp_logging_client():
     return LoggingJsonPlaceholderClient("https://jsonplaceholder.typicode.com")
+
+@pytest.fixture
+def user_id_factory():
+    used_ids = []
+
+    def factory(user_id=1):
+        used_ids.append(user_id)
+        return user_id
+
+    yield factory
+
+    print(f"\n[Teardown] Released user ids: {used_ids}")
+    used_ids.clear()

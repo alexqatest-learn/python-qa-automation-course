@@ -3,8 +3,8 @@ import requests
 
 
 
-def test_get_user_by_id(jp_client):
-    user_id = 1
+def test_get_user_by_id(jp_client, user_id_factory):
+    user_id = user_id_factory()
     response = jp_client.get_user(user_id)
     assert response.status_code == 200
     data = response.json()

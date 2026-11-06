@@ -1,4 +1,5 @@
 import pytest
+from tests.api.user_checks import assert_valid_user
 
 
 def test_get_user_not_found(jp_client):
@@ -10,10 +11,4 @@ def test_get_user_not_found(jp_client):
 @pytest.mark.parametrize("expected_id", [1, 2, 3])
 def test_get_user_by_id_parametrized(jp_client, user_id_factory, expected_id):
     user_id = user_id_factory(expected_id)
-    response = jp_client.get_user(user_id)
-    assert response.status_code == 200
-    data = response.json()
-    assert data["id"] == user_id
-    assert "name" in data
-    assert "username" in data
-    assert "email" in data
+    assert_valid_user(jp_client, user_id)

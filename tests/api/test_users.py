@@ -1,7 +1,10 @@
 import pytest
 from tests.api.user_checks import assert_valid_user
 
+pytestmark = pytest.mark.api
 
+
+@pytest.mark.smoke
 def test_get_user_not_found(jp_client):
     non_existent_user_id = 999
     response = jp_client.get_user(non_existent_user_id)

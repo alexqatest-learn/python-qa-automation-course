@@ -1,7 +1,12 @@
 from tests.ui.page_object.the_internet_login_page import TheInternetLoginPage, SECURE_URL
 from playwright.sync_api import Page, expect
 
+import pytest
 
+pytestmark = pytest.mark.ui
+
+
+@pytest.mark.smoke
 def test_successful_login(page: Page):
     login_page = TheInternetLoginPage(page)
     login_page.open()

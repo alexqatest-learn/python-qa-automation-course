@@ -5,7 +5,12 @@ from tests.ui.page_object.automation_camp_page import (
     FORMS_PAGE_URL,
 )
 
+import pytest
 
+pytestmark = pytest.mark.ui
+
+
+@pytest.mark.smoke
 def test_automation_camp_homepage_loads(page: Page):
     camp = AutomationCampPage(page)
     camp.open_main_page()

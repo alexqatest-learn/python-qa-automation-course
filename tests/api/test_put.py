@@ -1,13 +1,15 @@
-from http.client import responses
-
+import pytest
 import requests
+
+pytestmark = pytest.mark.api
 
 
 def test_update_user(api_headers):
     url = "https://reqres.in/api/users/2"
     payload = {
-    "name": "morpheus",
-    "job": "zion resident"}
+        "name": "morpheus",
+        "job": "zion resident",
+    }
 
     response = requests.put(url, json=payload, headers=api_headers)
 
@@ -16,14 +18,13 @@ def test_update_user(api_headers):
     assert "updatedAt" in response.json()
 
 
-def test_update_post(api_base_url):
-    url = f"{api_base_url}/posts/1"
+def test_update_post(jp_client):
     payload = {
         "title": "Updated Post",
         "body": "This is an updated post",
-        "userId": 1
+        "userId": 1,
     }
-    response = requests.put(url, json=payload)
+    response = jp_client.update_post(1, payload)
     data = response.json()
     assert response.status_code == 200
     assert data["title"] == "Updated Post"

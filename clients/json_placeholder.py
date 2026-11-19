@@ -14,6 +14,15 @@ class JsonPlaceholderClient(BaseApiClient):
     def get_user(self, user_id: int):
         return self._get(f"users/{user_id}")
 
+    def create_post(self, payload: dict):
+        return self._post("posts", json=payload)
+
+    def update_post(self, post_id: int, payload: dict):
+        return self._put(f"posts/{post_id}", json=payload)
+
+    def delete_post(self, post_id: int):
+        return self._delete(f"posts/{post_id}")
+
 
 class LoggingJsonPlaceholderClient(JsonPlaceholderClient):
     def get_post(self, post_id: int):

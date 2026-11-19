@@ -1,4 +1,7 @@
+import pytest
 import requests
+
+pytestmark = pytest.mark.api
 
 
 def test_delete_user(api_headers):
@@ -9,9 +12,8 @@ def test_delete_user(api_headers):
     assert response.status_code == 204
     assert response.text == ""
 
-def test_delete_post(api_base_url):
-    url = f"{api_base_url}/posts/1"
-    response = requests.delete(url)
-    data = response.json()
+
+def test_delete_post(jp_client):
+    response = jp_client.delete_post(1)
     assert response.status_code == 200
-    assert data == {}
+    assert response.json() == {}
